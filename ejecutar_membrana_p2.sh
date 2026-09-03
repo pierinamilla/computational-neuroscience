@@ -2,7 +2,7 @@
 #Script para compilar y ejecutar ecuacion_membrana
 
 echo "===Compilando programa Fortran"
-gfortran -Wall -g -o p2_membrana p2_ecuacion_membrana.f90
+gfortran -Wall -g -o p2_membrana ecuacion_membrana.f90
 if [ $? -eq 0 ]; then
 	echo "Compilación exitosa"
 	echo ""
