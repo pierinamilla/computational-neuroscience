@@ -1,6 +1,5 @@
-# graficar_todos.gp
 set terminal pngcairo size 1000,700 enhanced
-set output 'comparacion_gm.png'
+set output 'comparacion_gm_p3.png'
 set title "Potencial de Membrana vs Tiempo para diferentes Gm"
 set xlabel "Tiempo (ms)"
 set ylabel "Vm (mV)"

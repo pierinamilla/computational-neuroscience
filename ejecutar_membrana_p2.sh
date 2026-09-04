@@ -32,7 +32,7 @@ EOF
 	    gnuplot p2_graficar.gp
 
 	    #Limpiar script temporal
-	    rm -f graficar.gp
+	    rm -f p2_graficar.gp
 
 	    echo "Gráfico generado: potencial_membrana.png"
 	    echo ""

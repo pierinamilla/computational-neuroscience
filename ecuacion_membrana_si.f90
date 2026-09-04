@@ -7,7 +7,7 @@ program ecuacion_membrana_si
     ! CONSTANTES FIJAS (factores de conversión)
     ! ============================================
     real, parameter :: uF_a_F = 1e-2          ! µF/cm² → F/m²
-    real, parameter :: uS_a_S = 1e-1          ! µS/cm² → S/m²
+    real, parameter :: uS_a_S = 1e-2          ! µS/cm² → S/m²
     real, parameter :: mV_a_V = 1e-3          ! mV → V
     real, parameter :: uA_a_A = 1e-2          ! µA/cm² → A/m²
     real, parameter :: ms_a_s = 1e-3          ! ms → s
@@ -22,19 +22,16 @@ program ecuacion_membrana_si
     real :: dt = 1.0 * ms_a_s                 ! s     (1 ms)
     real :: tmin_j = 5.0 * ms_a_s             ! s     (5 ms)
     real :: tmax_j = 50.0 * ms_a_s            ! s     (50 ms)
-
     ! ============================================
     ! PARÁMETROS DE LA SIMULACIÓN
     ! ============================================
-    integer, parameter :: itmax = 80
-
+    integer,parameter:: itmax=80
     ! ============================================
     ! VARIABLES
     ! ============================================
     real :: Vm(0:itmax)
     real :: J, t
     integer :: it
-
     ! ============================================
     ! CONDICIÓN INICIAL
     ! ============================================
@@ -65,9 +62,9 @@ program ecuacion_membrana_si
 
     close(10)
 
-    print *, "✅ Simulación completada en SI"
-    print *, "📄 Resultados guardados en p4_potencial_membrana_si.txt"
-    print *, "⚠️ Unidades: Vm(V), t(s), J(A/m²), Gm(S/m²), Cm(F/m²)"
-    print *, "   Parámetros modificables: Cm, Gm, dt, J_stim, tmin_j, tmax_j"
+    print *, "Simulación completada en SI"
+    print *, "Resultados guardados en p4_potencial_membrana_si.txt"
+    print *, "Unidades: Vm(V), t(s), J(A/m²), Gm(S/m²), Cm(F/m²)"
+    !print *, "Parámetros modificables: Cm, Gm, dt, J_stim, tmin_j, tmax_j"
 
 end program ecuacion_membrana_si
