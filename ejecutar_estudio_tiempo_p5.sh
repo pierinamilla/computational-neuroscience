@@ -85,7 +85,7 @@ echo ""
 echo "Generando gráfico V vs t..."
 
 cat > p5_graficar_comparacion.gp << 'EOF'
-set terminal pngcairo size 1200,800 enhanced font 'Arial,14'
+set terminal pngcairo size 1200,600 enhanced font 'Arial,14'
 set output 'p5_comparacion_V_vs_t.png'
 set title "Comparison: Analytical vs Numerical(Euler) solution"
 set xlabel "Time (ms)"
@@ -96,11 +96,11 @@ set xrange [0:20]
 
 # Colores para las curvas
 set style line 1 lc rgb '#000000' lw 5 lt 2   # Negro - Analytical
-set style line 2 lc rgb '#D62728' lw 3 lt 1   # Rojo - dt=5e-4
-set style line 3 lc rgb '#1F77B4' lw 3 lt 1   # Azul - dt=1e-3
-set style line 4 lc rgb '#2CA02C' lw 3 lt 1   # Verde - dt=2e-3
-set style line 5 lc rgb '#FF7F0E' lw 3 lt 1   # Naranja - dt=1e-2
-set style line 6 lc rgb '#9467BD' lw 3 lt 1   # Púrpura - dt=1e-1
+set style line 2 lc rgb '#D62728' lw 2 lt 1   # Rojo - dt=5e-4
+set style line 3 lc rgb '#1F77B4' lw 2 lt 1   # Azul - dt=1e-3
+set style line 4 lc rgb '#2CA02C' lw 2 lt 1   # Verde - dt=2e-3
+set style line 5 lc rgb '#FF7F0E' lw 2 lt 1   # Naranja - dt=1e-2
+set style line 6 lc rgb '#9467BD' lw 2 lt 1   # Púrpura - dt=1e-1
 
 # Graficar solución analítica (usando el archivo con dt más pequeño como referencia)
 plot "p5_resultados_dt_5e-4.txt" using ($2*1000):($4*1000) with lines ls 1 title "Analytical solution", \
@@ -133,7 +133,7 @@ set ylabel "Relative error"
 set grid
 set key outside right
 set xrange [0:20]
-set yrange [-0.05:0.05]
+set yrange [-0.005:0.005]
 
 set style line 1 lc rgb '#D62728' lw 3 lt 1
 set style line 2 lc rgb '#1F77B4' lw 3 lt 1

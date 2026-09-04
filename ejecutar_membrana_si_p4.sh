@@ -59,14 +59,14 @@ echo "Generando gráfico"
 cat > graficar_p4.gp << 'EOF'
 set terminal pngcairo size 1000,700 enhanced font 'Arial,12'
 set output "potencial_membrana_p4.png"
-set title "Membrana Absolute Potential vs Time"
+set title "Membrana Absolute Potential vs Time (units transformed from SI)"
 set xlabel "Time (ms)"
 set ylabel "Vm (mV)"
 set grid
 set key outside right
 
 # Los datos están en SI (segundos, volts), convertimos a ms y mV
-plot 'potencial_membrana_si.txt' using ($2*1000):($3*1000) with lines lw 2 title 'Vm(t) (SI)'
+plot 'potencial_membrana_si.txt' using ($2*1000):($3*1000) with lines lw 2 title 'Vm(t)'
 EOF
 
 gnuplot graficar_p4.gp
