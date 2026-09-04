@@ -59,8 +59,8 @@ echo "Generando gráfico"
 cat > graficar_p4.gp << 'EOF'
 set terminal pngcairo size 1000,700 enhanced font 'Arial,12'
 set output "potencial_membrana_p4.png"
-set title "Potencial de Membrana vs Tiempo (Unidades SI)"
-set xlabel "Tiempo (ms)"
+set title "Membrana Absolute Potential vs Time"
+set xlabel "Time (ms)"
 set ylabel "Vm (mV)"
 set grid
 set key outside right

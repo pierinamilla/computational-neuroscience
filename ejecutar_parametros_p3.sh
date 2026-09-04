@@ -65,8 +65,8 @@ echo "Generando grafico"
 cat > p3_graficar.gp << 'EOF'
 set terminal pngcairo size 1000,700 enhanced
 set output 'comparacion_gm_p3.png'
-set title "Potencial de Membrana vs Tiempo para diferentes Gm"
-set xlabel "Tiempo (ms)"
+set title "Membrane Absolute Potential vs Time for different values of Gm"
+set xlabel "Time (ms)"
 set ylabel "Vm (mV)"
 set grid
 set key outside right
