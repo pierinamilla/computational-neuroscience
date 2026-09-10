@@ -1,5 +1,5 @@
 #!/bin/bash
-#Script para buscar el umbral de J iterando con varios pasos dJ
+#Script para buscar el umbral de J para cada dJ independientemente
 
 #Ir a la raiz del proyecto
 cd "$(dirname "$0")/.."
@@ -9,6 +9,8 @@ echo "Busqueda del umbral de J"
 
 #Parametros
 valores_dJ='0.5 0.05 0.01 0.005'
+J_inicial='2'
+J_final='20'
 valor_ti='10'   #ms
 valor_tf='10.5' #ms
 
@@ -41,109 +43,88 @@ probar_J() {
 
     case "$resultado" in
         "SPIKE")
-            echo "J=$J -> SPIKE" >> $archivo_datos
+            echo "  J=$J -> SPIKE" >> $archivo_datos
+            cp hh_q2.dat data/q2_spike.dat
             return 0
             ;;
         "NO SPIKE")
-            echo "J=$J -> NO SPIKE" >> $archivo_datos
+            echo "  J=$J -> NO SPIKE" >> $archivo_datos
+            cp hh_q2.dat data/q2_no_spike.dat
             return 1
             ;;
         *)
-            echo "J=$J -> SALIDA INESPERADA: '$resultado'" >> $archivo_datos
+            echo "  J=$J -> SALIDA INESPERADA: '$resultado'" >> $archivo_datos
             return 2
             ;;
     esac
 }
 
 #------------------------------------------------------------
-#Funcion: refina un intervalo [J_lo, J_hi] con paso dJ
-#Devuelve el nuevo intervalo en NUEVO_LO y NUEVO_HI
+#Bucle principal: para cada dJ, busqueda completa
 #------------------------------------------------------------
-refinar() {
-    local J_lo=$1
-    local J_hi=$2
-    local dJ=$3
-    local J
-    local J_prev=$J_lo
-
+for dJ in $valores_dJ; do
     echo "" >> $archivo_datos
-    echo "--- Nivel paso $dJ : [$J_lo, $J_hi] ---" >> $archivo_datos
+    echo "======================================" >> $archivo_datos
+    echo "dJ = $dJ" >> $archivo_datos
+    echo "======================================" >> $archivo_datos
 
-    J=$J_lo
-    while awk "BEGIN{exit !($J <= $J_hi)}"; do
+    echo ""
+    echo ">>> Probando dJ = $dJ"
+
+    J_prev=$J_inicial
+    ENCONTRADO=0
+    J=$J_inicial
+
+    #Recorrer el rango completo con este dJ
+    while awk "BEGIN{exit !($J <= $J_final)}"; do
         if probar_J $J; then
-            #Primer J que dispara
-            NUEVO_LO=$J_prev
-            NUEVO_HI=$J
-            return 0
+            echo "" >> $archivo_datos
+            echo "  Intervalo final para dJ=$dJ: [$J_prev, $J]" >> $archivo_datos
+            ENCONTRADO=1
+            break
         fi
         J_prev=$J
         J=$(echo "$J + $dJ" | bc -l)
     done
 
-    #Si llegamos aqui, ningun J disparo
-    NUEVO_LO=$J_lo
-    NUEVO_HI=$J_hi
-    return 1
-}
-
-#------------------------------------------------------------
-#Nivel 0: busqueda gruesa de 2 a 20 con paso 2
-#------------------------------------------------------------
-echo "" >> $archivo_datos
-echo "=== NIVEL 0: paso 2 ===" >> $archivo_datos
-
-J_prev=0
-ENCONTRADO=0
-for J in 2 4 6 8 10 12 14 16 18 20; do
-    if probar_J $J; then
-        NUEVO_LO=$J_prev
-        NUEVO_HI=$J
-        ENCONTRADO=1
-        break
+    if [ $ENCONTRADO -eq 0 ]; then
+        echo "  No se encontro disparo en [$J_inicial, $J_final] con dJ=$dJ" >> $archivo_datos
     fi
-    J_prev=$J
-done
-
-if [ $ENCONTRADO -eq 0 ]; then
-    echo "No se encontro disparo hasta J=20. Aumenta el rango." >> $archivo_datos
-    exit 1
-fi
-
-echo "" >> $archivo_datos
-echo "Intervalo nivel 0: [$NUEVO_LO, $NUEVO_HI]" >> $archivo_datos
-
-#------------------------------------------------------------
-#Niveles sucesivos de refinamiento
-#------------------------------------------------------------
-for dJ in $valores_dJ; do
-    J_lo=$NUEVO_LO
-    J_hi=$NUEVO_HI
-
-    #Verificar ancho del intervalo
-    ancho=$(echo "$J_hi - $J_lo" | bc -l)
-    if awk "BEGIN{exit !($ancho < $dJ)}"; then
-        echo "Intervalo [$J_lo, $J_hi] mas estrecho que dJ=$dJ. Deteniendo." >> $archivo_datos
-        break
-    fi
-
-    if ! refinar $J_lo $J_hi $dJ; then
-        echo "refinar fallo con dJ=$dJ en [$J_lo, $J_hi]" >> $archivo_datos
-        break
-    fi
-
-    echo "Intervalo nivel $dJ: [$NUEVO_LO, $NUEVO_HI]" >> $archivo_datos
 done
 
 #------------------------------------------------------------
-#Resultado final
+#Resumen final
 #------------------------------------------------------------
 echo "" >> $archivo_datos
 echo "======================================" >> $archivo_datos
-echo "UMBRAL FINAL: entre $NUEVO_LO y $NUEVO_HI uA/cm^2" >> $archivo_datos
-echo "NO dispara con J = $NUEVO_LO" >> $archivo_datos
-echo "SI dispara con J = $NUEVO_HI" >> $archivo_datos
+echo "RESUMEN DE RESULTADOS" >> $archivo_datos
+echo "======================================" >> $archivo_datos
+
+#Volver a recorrer para extraer los intervalos finales
+for dJ in $valores_dJ; do
+    intervalo=$(grep "Intervalo final para dJ=$dJ" $archivo_datos | tail -1)
+    echo "dJ=$dJ : $intervalo" >> $archivo_datos
+done
 
 echo ""
 echo "Busqueda terminada. Resultado en $archivo_datos"
-echo "Umbral: [$NUEVO_LO, $NUEVO_HI]"
+
+#------------------------------------------------------------
+#Graficos finales (del ultimo dJ que encontro disparo)
+#------------------------------------------------------------
+echo ""
+echo "Generando graficos..."
+
+if [ -f data/q2_no_spike.dat ]; then
+    sed "s|data/hh_q2.dat|data/q2_no_spike.dat|; s|plots/q2.png|plots/q2_no_spike.png|" \
+        scripts/plot_q2.gp > /tmp/plot_nospike.gp
+    gnuplot /tmp/plot_nospike.gp
+fi
+
+if [ -f data/q2_spike.dat ]; then
+    sed "s|data/hh_q2.dat|data/q2_spike.dat|; s|plots/q2.png|plots/q2_spike.png|" \
+        scripts/plot_q2.gp > /tmp/plot_spike.gp
+    gnuplot /tmp/plot_spike.gp
+fi
+
+echo "Graficos guardados en plots/"
