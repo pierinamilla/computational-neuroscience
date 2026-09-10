@@ -1,0 +1,15 @@
+Busqueda del umbral - Pulso [10, 10.5] ms
+======================================
+
+=== NIVEL 0: paso 2 ===
+J=2 -> SALIDA INESPERADA: ' No Spike'
+J=4 -> SALIDA INESPERADA: ' No Spike'
+J=6 -> SALIDA INESPERADA: ' No Spike'
+J=8 -> SALIDA INESPERADA: ' No Spike'
+J=10 -> SALIDA INESPERADA: ' No Spike'
+J=12 -> SALIDA INESPERADA: ' No Spike'
+J=14 -> SALIDA INESPERADA: ' Spike'
+J=16 -> SALIDA INESPERADA: ' Spike'
+J=18 -> SALIDA INESPERADA: ' Spike'
+J=20 -> SALIDA INESPERADA: ' Spike'
+No se encontro disparo hasta J=20. Aumenta el rango.
