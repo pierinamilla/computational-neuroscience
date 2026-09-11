@@ -1,0 +1,49 @@
+Busqueda del umbral - Pulso [10, 10.5] ms
+======================================
+
+======================================
+dJ = 2
+======================================
+  J=2 -> NO SPIKE
+  J=4 -> NO SPIKE
+  J=6 -> NO SPIKE
+  J=8 -> NO SPIKE
+  J=10 -> NO SPIKE
+  J=12 -> NO SPIKE
+  J=14 -> SPIKE
+
+  Intervalo final para dJ=2: [12, 14]
+
+======================================
+dJ = 0.5
+======================================
+  J=12 -> NO SPIKE
+  J=12.5 -> NO SPIKE
+  J=13.0 -> NO SPIKE
+  J=13.5 -> SPIKE
+
+  Intervalo final para dJ=0.5: [13.0, 13.5]
+
+======================================
+dJ = 0.01
+======================================
+  J=13.0 -> NO SPIKE
+  J=13.01 -> NO SPIKE
+  J=13.02 -> NO SPIKE
+  J=13.03 -> NO SPIKE
+  J=13.04 -> NO SPIKE
+  J=13.05 -> NO SPIKE
+  J=13.06 -> NO SPIKE
+  J=13.07 -> NO SPIKE
+  J=13.08 -> NO SPIKE
+  J=13.09 -> NO SPIKE
+  J=13.10 -> SPIKE
+
+  Intervalo final para dJ=0.01: [13.09, 13.10]
+
+======================================
+RESUMEN DE RESULTADOS
+======================================
+dJ=2 :   Intervalo final para dJ=2: [12, 14]
+dJ=0.5 :   Intervalo final para dJ=0.5: [13.0, 13.5]
+dJ=0.01 :   Intervalo final para dJ=0.01: [13.09, 13.10]

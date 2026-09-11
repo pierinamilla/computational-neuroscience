@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 ROOT=$(pwd)
 
 # Duración del pulso (por defecto 0.5 ms)
-DURACION=${1:-0.5}
+DURACION=1 #${1:-0.5}
 
 echo "  BUSQUEDA DEL UMBRAL DE J"
 echo "  Duración del pulso: $DURACION ms"
@@ -47,11 +47,11 @@ probar_J() {
 
     if echo "$resultado" | grep -q "NO SPIKE"; then
         echo "  J=$J -> NO SPIKE" >> $archivo_datos
-        cp data/data_spike.txt data/q2_no_spike.dat
+        cp data/data_spike.txt data/q3_no_spike.txt
         return 1
     elif echo "$resultado" | grep -q "SPIKE"; then
         echo "  J=$J -> SPIKE" >> $archivo_datos
-        cp data/data_spike.txt data/q2_spike.dat
+        cp data/data_spike.txt data/q3_spike.txt
         return 0
     else
         echo "  J=$J -> SALIDA INESPERADA: '$resultado'" >> $archivo_datos
@@ -122,31 +122,30 @@ echo "Busqueda terminada. Resultado en $archivo_datos"
 echo ""
 echo "Generando graficos..."
 
-if [ -f data/q2_no_spike.dat ]; then
-    sed "s|data/hh_q2.dat|data/q2_no_spike.dat|; s|plots/q2.png|plots/q2_no_spike.png|" \
-        scripts/plot_q2.gp > /tmp/plot_nospike.gp
+if [ -f data/q3_no_spike.dat ]; then
+    sed "s|data/hh_q3.dat|data/q3_no_spike.txt|; s|plots/q3.png|plots/q3_no_spike.png|" \
+        scripts/plot_q3.gp > /tmp/plot_nospike.gp
     gnuplot /tmp/plot_nospike.gp
 fi
 
-if [ -f data/q2_spike.dat ]; then
-    sed "s|data/hh_q2.dat|data/q2_spike.dat|; s|plots/q2.png|plots/q2_spike.png|" \
-        scripts/plot_q2.gp > /tmp/plot_spike.gp
+if [ -f data/q3_spike.dat ]; then
+    sed "s|data/hh_q3.dat|data/q3_spike.txt|; s|plots/q3.png|plots/q3_spike.png|" \
+        scripts/plot_q3.gp > /tmp/plot_spike.gp
     gnuplot /tmp/plot_spike.gp
 fi
 
-J_no=13.09   # ajusta a tu valor real
-J_si=13.10   # ajusta a tu valor real
+# Caso NO SPIKE
+gnuplot -e "archivo_in='data/q3_no_spike.txt'; \
+            archivo_out='plots/q3_no_spike.png'; \
+            titulo_global='Question 3: 1 ms pulse, J = 6.83 (no spike)'" \
+        scripts/plot_q3.gp
 
-gnuplot -e "archivo_in='data/q2_no_spike.dat'; \
-            archivo_out='plots/q2_no_spike.png'; \
-            titulo_global='Question 2: J = $J_no uA/cm2 (no spike)'" \
-        scripts/plot_q2.gp
-
-gnuplot -e "archivo_in='data/q2_spike.dat'; \
-            archivo_out='plots/q2_spike.png'; \
-            titulo_global='Question 2: J = $J_si uA/cm2 (spike)'" \
-        scripts/plot_q2.gp
+# Caso SPIKE
+gnuplot -e "archivo_in='data/q3_spike.txt'; \
+            archivo_out='plots/q3_spike.png'; \
+            titulo_global='Question 3: 1 ms pulse, J = 6.84 (spike)'" \
+        scripts/plot_q3.gp
 
 echo "Graficos generados en plots/"
-eog plots/q2_no_spike.png &
-eog plots/q2_spike.png &
+eog plots/q3_no_spike.png &
+eog plots/q3_spike.png &

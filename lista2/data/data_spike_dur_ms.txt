@@ -1,0 +1,124 @@
+Busqueda del umbral - Pulso [10, ] ms
+======================================
+
+======================================
+dJ = 2
+======================================
+  J=2 -> NO SPIKE
+  J=4 -> NO SPIKE
+  J=6 -> NO SPIKE
+  J=8 -> NO SPIKE
+  J=10 -> NO SPIKE
+  J=12 -> NO SPIKE
+  J=14 -> NO SPIKE
+  J=16 -> NO SPIKE
+  J=18 -> NO SPIKE
+  J=20 -> NO SPIKE
+  No se encontro disparo en [2, 20] con dJ=2
+
+======================================
+dJ = 0.5
+======================================
+  J=2 -> NO SPIKE
+  J=2.5 -> NO SPIKE
+  J=3.0 -> NO SPIKE
+  J=3.5 -> NO SPIKE
+  J=4.0 -> NO SPIKE
+  J=4.5 -> NO SPIKE
+  J=5.0 -> NO SPIKE
+  J=5.5 -> NO SPIKE
+  J=6.0 -> NO SPIKE
+  J=6.5 -> NO SPIKE
+  J=7.0 -> NO SPIKE
+  J=7.5 -> NO SPIKE
+  J=8.0 -> NO SPIKE
+  J=8.5 -> NO SPIKE
+  J=9.0 -> NO SPIKE
+  J=9.5 -> NO SPIKE
+  J=10.0 -> NO SPIKE
+  J=10.5 -> NO SPIKE
+  J=11.0 -> NO SPIKE
+  J=11.5 -> NO SPIKE
+  J=12.0 -> NO SPIKE
+  J=12.5 -> NO SPIKE
+  J=13.0 -> NO SPIKE
+  J=13.5 -> NO SPIKE
+  J=14.0 -> NO SPIKE
+  J=14.5 -> NO SPIKE
+  J=15.0 -> NO SPIKE
+  J=15.5 -> NO SPIKE
+  J=16.0 -> NO SPIKE
+  J=16.5 -> NO SPIKE
+  J=17.0 -> NO SPIKE
+  J=17.5 -> NO SPIKE
+  J=18.0 -> NO SPIKE
+  J=18.5 -> NO SPIKE
+  J=19.0 -> NO SPIKE
+  J=19.5 -> NO SPIKE
+  J=20.0 -> NO SPIKE
+  No se encontro disparo en [2, 20] con dJ=0.5
+
+======================================
+dJ = 0.01
+======================================
+  J=2 -> NO SPIKE
+  J=2.01 -> NO SPIKE
+  J=2.02 -> NO SPIKE
+  J=2.03 -> NO SPIKE
+  J=2.04 -> NO SPIKE
+  J=2.05 -> NO SPIKE
+  J=2.06 -> NO SPIKE
+  J=2.07 -> NO SPIKE
+  J=2.08 -> NO SPIKE
+  J=2.09 -> NO SPIKE
+  J=2.10 -> NO SPIKE
+  J=2.11 -> NO SPIKE
+  J=2.12 -> NO SPIKE
+  J=2.13 -> NO SPIKE
+  J=2.14 -> NO SPIKE
+  J=2.15 -> NO SPIKE
+  J=2.16 -> NO SPIKE
+  J=2.17 -> NO SPIKE
+  J=2.18 -> NO SPIKE
+  J=2.19 -> NO SPIKE
+  J=2.20 -> NO SPIKE
+  J=2.21 -> NO SPIKE
+  J=2.22 -> NO SPIKE
+  J=2.23 -> NO SPIKE
+  J=2.24 -> NO SPIKE
+  J=2.25 -> NO SPIKE
+  J=2.26 -> NO SPIKE
+  J=2.27 -> NO SPIKE
+  J=2.28 -> NO SPIKE
+  J=2.29 -> NO SPIKE
+  J=2.30 -> NO SPIKE
+  J=2.31 -> NO SPIKE
+  J=2.32 -> NO SPIKE
+  J=2.33 -> NO SPIKE
+  J=2.34 -> NO SPIKE
+  J=2.35 -> NO SPIKE
+  J=2.36 -> NO SPIKE
+  J=2.37 -> NO SPIKE
+  J=2.38 -> NO SPIKE
+  J=2.39 -> NO SPIKE
+  J=2.40 -> NO SPIKE
+  J=2.41 -> NO SPIKE
+  J=2.42 -> NO SPIKE
+  J=2.43 -> NO SPIKE
+  J=2.44 -> NO SPIKE
+  J=2.45 -> NO SPIKE
+  J=2.46 -> NO SPIKE
+  J=2.47 -> NO SPIKE
+  J=2.48 -> NO SPIKE
+  J=2.49 -> NO SPIKE
+  J=2.50 -> NO SPIKE
+  J=2.51 -> NO SPIKE
+  J=2.52 -> NO SPIKE
+  J=2.53 -> NO SPIKE
+  J=2.54 -> NO SPIKE
+  J=2.55 -> NO SPIKE
+  J=2.56 -> NO SPIKE
+  J=2.57 -> NO SPIKE
+  J=2.58 -> NO SPIKE
+  J=2.59 -> NO SPIKE
+  J=2.60 -> NO SPIKE
