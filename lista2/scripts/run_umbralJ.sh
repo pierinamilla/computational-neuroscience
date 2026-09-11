@@ -1,39 +1,39 @@
 #!/bin/bash
-#Script para buscar el umbral de J para cada dJ independientemente
+# Script para buscar el umbral de J con refinamiento sucesivo
 
-#Ir a la raiz del proyecto
+# Ir a la raíz del proyecto
 cd "$(dirname "$0")/.."
 ROOT=$(pwd)
 
 echo "Busqueda del umbral de J"
 
-#Parametros
-valores_dJ='0.5 0.05 0.01 0.005'
+# Parametros
+valores_dJ='2 0.5 0.01'
 J_inicial='2'
 J_final='20'
-valor_ti='10'   #ms
-valor_tf='10.5' #ms
+valor_ti='10'   # ms
+valor_tf='10.5' # ms
 
-#Configuracion
+# Configuracion
 fuente="src/hhmodel_spike.f90"
 eje="bin/hh_model"
-archivo_datos="data/buscando_potencial_accion.txt"
+archivo_datos="data/data_spike.txt"
 
-#Crear carpetas si no existen
+# Crear carpetas si no existen
 mkdir -p bin data plots
 
-#Compilar una sola vez
+# Compilar una sola vez
 echo "Compilando..."
 gfortran -O3 -Wall -o $eje $fuente || exit 1
 
-#Limpiar archivo de datos
+# Limpiar archivo de datos
 > $archivo_datos
 
 echo "Busqueda del umbral - Pulso [$valor_ti, $valor_tf] ms" >> $archivo_datos
 echo "======================================" >> $archivo_datos
 
 #------------------------------------------------------------
-#Funcion: prueba un J, devuelve 0 si SPIKE, 1 si NO SPIKE
+# Funcion: prueba un J, devuelve 0 si SPIKE, 1 si NO SPIKE
 #------------------------------------------------------------
 probar_J() {
     local J=$1
@@ -41,27 +41,26 @@ probar_J() {
 
     resultado=$($eje $J $valor_ti $valor_tf 2>/dev/null)
 
-    case "$resultado" in
-        "SPIKE")
-            echo "  J=$J -> SPIKE" >> $archivo_datos
-            cp hh_q2.dat data/q2_spike.dat
-            return 0
-            ;;
-        "NO SPIKE")
-            echo "  J=$J -> NO SPIKE" >> $archivo_datos
-            cp hh_q2.dat data/q2_no_spike.dat
-            return 1
-            ;;
-        *)
-            echo "  J=$J -> SALIDA INESPERADA: '$resultado'" >> $archivo_datos
-            return 2
-            ;;
-    esac
+    if echo "$resultado" | grep -q "NO SPIKE"; then
+        echo "  J=$J -> NO SPIKE" >> $archivo_datos
+        cp data/data_spike.txt data/q2_no_spike.dat
+        return 1
+    elif echo "$resultado" | grep -q "SPIKE"; then
+        echo "  J=$J -> SPIKE" >> $archivo_datos
+        cp data/data_spike.txt data/q2_spike.dat
+        return 0
+    else
+        echo "  J=$J -> SALIDA INESPERADA: '$resultado'" >> $archivo_datos
+        return 2
+    fi
 }
 
 #------------------------------------------------------------
-#Bucle principal: para cada dJ, busqueda completa
+# Bucle principal con refinamiento sucesivo
 #------------------------------------------------------------
+J_prev_global=$J_inicial
+J_spike_global=$J_final
+
 for dJ in $valores_dJ; do
     echo "" >> $archivo_datos
     echo "======================================" >> $archivo_datos
@@ -69,18 +68,23 @@ for dJ in $valores_dJ; do
     echo "======================================" >> $archivo_datos
 
     echo ""
-    echo ">>> Probando dJ = $dJ"
+    echo ">>> Probando dJ = $dJ (rango: [$J_prev_global, $J_spike_global])"
 
-    J_prev=$J_inicial
+    # Empezar desde el último NO SPIKE conocido
+    J=$J_prev_global
+    J_prev=$J_prev_global
     ENCONTRADO=0
-    J=$J_inicial
 
-    #Recorrer el rango completo con este dJ
-    while awk "BEGIN{exit !($J <= $J_final)}"; do
+    # Recorrer el rango [J_prev_global, J_spike_global] con este dJ
+    while awk "BEGIN{exit !($J <= $J_spike_global)}"; do
         if probar_J $J; then
             echo "" >> $archivo_datos
             echo "  Intervalo final para dJ=$dJ: [$J_prev, $J]" >> $archivo_datos
             ENCONTRADO=1
+            
+            # ✅ ACTUALIZAR el rango para el siguiente dJ
+            J_prev_global=$J_prev
+            J_spike_global=$J
             break
         fi
         J_prev=$J
@@ -88,19 +92,18 @@ for dJ in $valores_dJ; do
     done
 
     if [ $ENCONTRADO -eq 0 ]; then
-        echo "  No se encontro disparo en [$J_inicial, $J_final] con dJ=$dJ" >> $archivo_datos
+        echo "  No se encontro disparo en [$J_prev_global, $J_spike_global] con dJ=$dJ" >> $archivo_datos
     fi
 done
 
 #------------------------------------------------------------
-#Resumen final
+# Resumen final
 #------------------------------------------------------------
 echo "" >> $archivo_datos
 echo "======================================" >> $archivo_datos
 echo "RESUMEN DE RESULTADOS" >> $archivo_datos
 echo "======================================" >> $archivo_datos
 
-#Volver a recorrer para extraer los intervalos finales
 for dJ in $valores_dJ; do
     intervalo=$(grep "Intervalo final para dJ=$dJ" $archivo_datos | tail -1)
     echo "dJ=$dJ : $intervalo" >> $archivo_datos
@@ -110,7 +113,7 @@ echo ""
 echo "Busqueda terminada. Resultado en $archivo_datos"
 
 #------------------------------------------------------------
-#Graficos finales (del ultimo dJ que encontro disparo)
+# Graficos finales
 #------------------------------------------------------------
 echo ""
 echo "Generando graficos..."
@@ -128,3 +131,6 @@ if [ -f data/q2_spike.dat ]; then
 fi
 
 echo "Graficos guardados en plots/"
+
+eog plots/q2_no_spike.png &
+eog plots/q2_spike.png &

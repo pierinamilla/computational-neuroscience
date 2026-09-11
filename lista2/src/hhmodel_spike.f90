@@ -39,7 +39,7 @@ program hh_model_spike
     
 
     ! Abrir archivo
-    open(unit=10, file='hh_q1.dat', status='replace')
+    open(unit=10, file='data/data_spike.txt', status='replace')
 
     do i = 0, itmax
         t = i * dt
@@ -101,9 +101,9 @@ program hh_model_spike
 
     !Imprimir en pantalla
     if (spike) then 
-            write(*,*) "Spike"
+            write(*,*) "SPIKE"
     else
-            write(*,*) "No Spike"
+            write(*,*) "NO SPIKE"
     end if
 
 end program hh_model_spike
