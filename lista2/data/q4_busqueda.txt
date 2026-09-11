@@ -1,0 +1,29 @@
+Pregunta 4: degrau [50, 450] ms, dt=0.025, t_total=500
+======================================
+
+=== 1) Reobase ===
+J=1 -> 0 spikes
+J=6 -> 2 spikes
+J=11 -> 29 spikes
+J=16 -> 33 spikes
+J=20 -> 35 spikes
+
+=== 2) Dos disparos ===
+J=5 -> 1 spikes
+J=6 -> 2 spikes
+J=7 -> 24 spikes
+J=8 -> 25 spikes
+J=10 -> 28 spikes
+J=12 -> 30 spikes
+J=15 -> 32 spikes
+J=18 -> 34 spikes
+J=20 -> 35 spikes
+
+=== 3) Tren de disparos ===
+J=10 -> 28 spikes
+J=15 -> 32 spikes
+J=20 -> 35 spikes
+J=25 -> 38 spikes
+J=30 -> 40 spikes
+J=40 -> 44 spikes
+J=50 -> 47 spikes
