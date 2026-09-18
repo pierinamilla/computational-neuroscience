@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 cd "$(dirname "$0")/.."
-mkdir -p bin data plots
+#mkdir -p bin data plots
 
 echo "=== Compilando q1cd ==="
 gfortran -O3 -Wall -Jbin -o bin/q1cd src/q1cd_main.f90 \
