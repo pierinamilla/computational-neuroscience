@@ -1,0 +1,43 @@
+Resultados de la ejecución de la versión modificada
+
+Q2:
+- 24 spikes somáticos en 2 s.
+
+Q3:
+- Gc=0 nS: 52 spikes
+- Gc=10 nS: 30 spikes
+- Gc=50 nS: 6 spikes
+- Gc=100 nS: 3 spikes
+
+Q4 (k duplicado, mismos Gc de Q3):
+- Gc=0 nS: 52 spikes
+- Gc=10 nS: 97 spikes
+- Gc=50 nS: 12 spikes
+- Gc=100 nS: 3 spikes
+
+Q5, corriente en dendrito (IS=0):
+- ID=50 pA: 53 spikes
+- ID=100 pA: 82 spikes
+- ID=200 pA: 402 spikes
+
+Q5, corriente en soma (ID=0):
+- IS=50 pA: 66 spikes
+- IS=100 pA: 334 spikes
+- IS=200 pA: 651 spikes
+
+Q6:
+- Gh=0 nS: primer burst ≈ 0.4054 s
+- Gh=5 nS: primer burst ≈ 0.1131 s
+- Gh=10 nS: primer burst ≈ 0.0428 s
+- Gh=15 nS: primer burst ≈ 0.0244 s
+
+Figuras nuevas que genera plot_lista4.gp:
+- q2_zoom.png
+- q4.png (los cuatro Gc con k duplicado)
+- q5_dendrite.png
+- q5_soma.png
+- q6_mh_rates.png
+- q6_zoom.png
+
+La figura q6_zoom.png alinea cada simulación por su primer burst y muestra
+una ventana de ±25 ms, como pide la lista.
