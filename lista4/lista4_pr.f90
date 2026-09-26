@@ -1,4 +1,3 @@
-
 module pr_model
   implicit none
   integer, parameter :: dp = kind(1.0d0)
@@ -282,7 +281,9 @@ contains
     open(10,file='q1_voltage.dat',status='replace')
     do i=0,nv-1
        V=(-0.085_dp + 0.135_dp*real(i,dp)/real(nv-1,dp))
-       call rates(V,-0.060_dp,0.0_dp,am,bm,ah,bh,an,bn,amCa,bmCa,amKCa,bmKCa,amA,bA,chi)
+       ! Fix: usar V tanto para Vs como para Vd, para ver la dependencia
+       ! completa de todas las tasas del dendrito con la voltaje.
+       call rates(V, V, 0.0_dp, am,bm,ah,bh,an,bn,amCa,bmCa,amKCa,bmKCa,amA,bA,chi)
        write(10,'(11(es18.10,1x))') V*1000.0_dp,am,bm,ah,bh,an,bn,amCa,bmCa,amKCa,bmKCa
     end do
     close(10)
@@ -358,7 +359,6 @@ contains
     real(dp),dimension(4) :: gcs
     integer :: i,j,n,spk,armed,save_every,u
     character(len=16) :: mode_name
-    ! Q4: repeat Q3 with k doubled.
     gcs=(/0.0_dp,10.0e-9_dp,50.0e-9_dp,100.0e-9_dp/)
     dt=2.0e-6_dp; n=int(2.0_dp/dt); save_every=10
     do j=1,4
