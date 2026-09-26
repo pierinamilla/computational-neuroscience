@@ -132,25 +132,25 @@ set multiplot layout 4,2 title "Q6b: efecto de Gh sobre el patrón somático" fo
 
 set xrange [2:6]; unset yrange
 set ylabel "V_S (mV)" font 'Arial,9'; unset xlabel
-plot "q6_Gh_0nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+plot "q6_Gh_0nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'blue' notitle
 set xrange [-25:25]
-plot "q6_Gh_0nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+plot "q6_Gh_0nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'blue' notitle
 
 set xrange [2:6]
-plot "q6_Gh_5nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+plot "q6_Gh_5nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'blue' notitle
 set xrange [-25:25]
-plot "q6_Gh_5nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+plot "q6_Gh_5nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'blue' notitle
 
 set xrange [2:6]
-plot "q6_Gh_10nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+plot "q6_Gh_10nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'blue' notitle
 set xrange [-25:25]
-plot "q6_Gh_10nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+plot "q6_Gh_10nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'blue' notitle
 
 set xrange [2:6]
 set xlabel "Time (s)" font 'Arial,9'
-plot "q6_Gh_15nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+plot "q6_Gh_15nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'blue' notitle
 set xrange [-25:25]
 set xlabel "Time (ms)" font 'Arial,9'
-plot "q6_Gh_15nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+plot "q6_Gh_15nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'blue' notitle
 
 unset multiplot
