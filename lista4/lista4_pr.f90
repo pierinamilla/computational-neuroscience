@@ -443,13 +443,15 @@ contains
     type(Params) :: P
     real(dp) :: y(10),dt,t,IS,ID,prevD
     real(dp) :: mh_inf,tau_mh,V
-    real(dp), allocatable :: ts(:),vs(:),vd(:)
+    real(dp), allocatable :: ts(:),vs(:),vd(:),burst_starts(:)
     real(dp),dimension(4) :: ghlist
-    integer :: i,j,n,save_every,u,nsave,k,first_idx,lo,hi
-    integer :: inburst
+    integer :: i,j,n,save_every,u,nsave,k,n_bursts
+    integer :: inburst !, tpn_idx
+    real(dp) :: tpn, t_rel_ms
     character(len=16) :: ss
+    logical :: got_penultimate
 
-    ! Q6a: steady-state activation and time constant of Ih.
+    ! --- Q6a: mh_inf and tau_mh vs V_D ---
     open(70,file='q6_mh_rates.dat',status='replace')
     do i=0,1000
        V=-0.100_dp + 0.100_dp*real(i,dp)/1000.0_dp
@@ -459,52 +461,84 @@ contains
     end do
     close(70)
 
-    ! Q6b: 6 s simulations for the four Gh values.
+    ! --- Q6b: 6 s simulations ---
     ghlist=(/0.0_dp,5.0_dp,10.0_dp,15.0_dp/)
     dt=1.0e-6_dp; n=int(6.0_dp/dt); save_every=100
     nsave=n/save_every+1
     allocate(ts(0:nsave-1),vs(0:nsave-1),vd(0:nsave-1))
+    allocate(burst_starts(1:nsave))
 
     do j=1,4
        call set_q6(P,ghlist(j))
        call init(y,P,.false.)
        y(10)=1.0_dp/(1.0_dp+sexp(166.667_dp*(y(2)+0.070_dp)))
        write(ss,'(i0)') int(ghlist(j))
+
        u=60+j
        open(u,file='q6_Gh_'//trim(ss)//'nS.dat',status='replace')
        call write_state(u,0.0_dp,y)
+
        ts(0)=0.0_dp; vs(0)=y(1); vd(0)=y(2)
-       inburst=0; prevD=y(2); k=1; first_idx=-1
+       inburst=0; prevD=y(2); k=1; n_bursts=0
 
        do i=1,n
           t=i*dt; IS=0.0_dp; ID=0.0_dp
           call rk4(y,dt,P,IS,ID)
+
+          ! Inicio de burst: VD cruza 0 mV desde abajo
           if(inburst==0 .and. prevD<0.0_dp .and. y(2)>=0.0_dp) then
              inburst=1
-             if(first_idx < 0) first_idx=max(0,k)
+             n_bursts = n_bursts + 1
+             if(n_bursts <= nsave) burst_starts(n_bursts) = t
           end if
+          ! Fin de burst: VD < -50 mV
           if(inburst==1 .and. y(2)<-0.050_dp) inburst=0
           prevD=y(2)
-          if(mod(i,save_every)==0) then
+
+          if(mod(i,save_every)==0 .and. k<=nsave-1) then
              call write_state(u,t,y)
              ts(k)=t; vs(k)=y(1); vd(k)=y(2); k=k+1
           end if
        end do
        close(u)
 
-       ! Write a +/-25 ms window around the first dendritic burst.
-       if(first_idx < 0) first_idx=1
-       lo=max(0,first_idx-250)
-       hi=min(k-1,first_idx+250)
-       open(80+j,file='q6_Gh_'//trim(ss)//'nS_zoom.dat',status='replace')
-       do i=lo,hi
-          write(80+j,'(3(es18.10,1x))') ts(i)-ts(first_idx),vs(i),vd(i)
+       ! Buscar el penúltimo burst en [2, 6] s (igual que Python)
+       tpn = -1.0_dp
+       got_penultimate = .false.
+       do i = n_bursts, 1, -1
+          if(burst_starts(i) >= 2.0_dp .and. burst_starts(i) <= 6.0_dp) then
+             if(.not. got_penultimate) then
+                ! este es el ultimo en [2,6]; guardar y seguir
+                tpn = burst_starts(i)
+                got_penultimate = .true.
+             else
+                ! este es el penultimo
+                tpn = burst_starts(i)
+                exit
+             end if
+          end if
+       end do
+
+       if(tpn < 0.0_dp) then
+          print '(a,f5.1,a)', 'Q6 Gh=',ghlist(j),' nS: no burst in [2,6] s.'
+          cycle
+       end if
+
+       print '(a,f5.1,a,i3,a,f8.4,a)', 'Q6 Gh=',ghlist(j), &
+          ' nS: total bursts=', n_bursts, ' tpn=', tpn, ' s'
+
+       ! Escribir el zoom: ±25 ms alrededor de tpn, eje en ms
+       open(80+j, file='q6_Gh_'//trim(ss)//'nS_zoom.dat', status='replace')
+       do i=0, k-1
+          t_rel_ms = (ts(i) - tpn) * 1000.0_dp   ! ms relativo a tpn
+          if(t_rel_ms >= -25.0_dp .and. t_rel_ms <= 25.0_dp) then
+             write(80+j,'(3(es18.10,1x))') t_rel_ms, vs(i), vd(i)
+          end if
        end do
        close(80+j)
-       print '(a,f5.1,a,f8.4,a)', 'Q6 Gh=',ghlist(j),' nS, first burst=',ts(first_idx),' s; zoom generated.'
     end do
 
-    deallocate(ts,vs,vd)
+    deallocate(ts,vs,vd,burst_starts)
   end subroutine q6
 
 end program lista4

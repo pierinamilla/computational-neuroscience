@@ -58,69 +58,99 @@ plot "q4_Gc_0nS.dat"   u 1:($2*1000) w l t "Gc=0 nS", \
      "q4_Gc_100nS.dat" u 1:($2*1000) w l t "Gc=100 nS"
 
 # ---------------- Q5 ----------------
-# Dendritic injection: ventana completa de 6 s
+# Dendritic injection
 set output "q5_dendrite.png"
 set xrange [0:6]
 set multiplot layout 3,1 title "Q5: current injected in dendrite"
 set xlabel "t (s)"; set ylabel "V (mV)"
-plot "q5_ID_50pA.dat"  u 1:($2*1000) w l t "Vs 50 pA",  "q5_ID_50pA.dat"  u 1:($3*1000) w l t "Vd 50 pA"
-plot "q5_ID_100pA.dat" u 1:($2*1000) w l t "Vs 100 pA", "q5_ID_100pA.dat" u 1:($3*1000) w l t "Vd 100 pA"
-plot "q5_ID_200pA.dat" u 1:($2*1000) w l t "Vs 200 pA", "q5_ID_200pA.dat" u 1:($3*1000) w l t "Vd 200 pA"
+plot "q5_ID_50pA.dat"  u 1:($2*1000) w l t "Vs 50 pA", \
+     "q5_ID_50pA.dat"  u 1:($3*1000) w l t "Vd 50 pA"
+plot "q5_ID_100pA.dat" u 1:($2*1000) w l t "Vs 100 pA", \
+     "q5_ID_100pA.dat" u 1:($3*1000) w l t "Vd 100 pA"
+plot "q5_ID_200pA.dat" u 1:($2*1000) w l t "Vs 200 pA", \
+     "q5_ID_200pA.dat" u 1:($3*1000) w l t "Vd 200 pA"
 unset multiplot
 
-# Somatic injection: ventana completa de 6 s
+# Somatic injection
 set output "q5_soma.png"
 set xrange [0:6]
 set multiplot layout 3,1 title "Q5: current injected in soma"
 set xlabel "t (s)"; set ylabel "V (mV)"
-plot "q5_IS_50pA.dat"  u 1:($2*1000) w l t "Vs 50 pA",  "q5_IS_50pA.dat"  u 1:($3*1000) w l t "Vd 50 pA"
-plot "q5_IS_100pA.dat" u 1:($2*1000) w l t "Vs 100 pA", "q5_IS_100pA.dat" u 1:($3*1000) w l t "Vd 100 pA"
-plot "q5_IS_200pA.dat" u 1:($2*1000) w l t "Vs 200 pA", "q5_IS_200pA.dat" u 1:($3*1000) w l t "Vd 200 pA"
+plot "q5_IS_50pA.dat"  u 1:($2*1000) w l t "Vs 50 pA", \
+     "q5_IS_50pA.dat"  u 1:($3*1000) w l t "Vd 50 pA"
+plot "q5_IS_100pA.dat" u 1:($2*1000) w l t "Vs 100 pA", \
+     "q5_IS_100pA.dat" u 1:($3*1000) w l t "Vd 100 pA"
+plot "q5_IS_200pA.dat" u 1:($2*1000) w l t "Vs 200 pA", \
+     "q5_IS_200pA.dat" u 1:($3*1000) w l t "Vd 200 pA"
 unset multiplot
 unset xrange
 
 # ---------------- Q6 ----------------
-# Q6a: m_h(infinity) y tau_mh (ya en mV en el .dat)
+# Q6a
 set output "q6_mh_rates.png"
 unset xrange
 unset yrange
 set multiplot layout 1,2 title "Q6a: cinética de Ih"
 set xlabel "V_D (mV)"
 set ylabel "m_h,infinity"
-plot "q6_mh_rates.dat" u 1:2 w l t "m_h,infinity"
+plot "q6_mh_rates.dat" u 1:2 w l lw 2 t "m_h,infinity"
 set xlabel "V_D (mV)"
-set ylabel "tau_mh (s)"
-plot "q6_mh_rates.dat" u 1:3 w l t "tau_mh"
+set ylabel "tau_mh (ms)"
+plot "q6_mh_rates.dat" u 1:($3*1000) w l lw 2 t "tau_mh"
 unset multiplot
 
-# Q6b: 6 s overview
+# Q6b: overview
 set output "q6.png"
-unset xrange
 set xrange [0:6]
 set xlabel "t (s)"; set ylabel "V_S (mV)"
-plot "q6_Gh_0nS.dat"  u 1:($2*1000) w l t "Gh=0 nS", \
-     "q6_Gh_5nS.dat"  u 1:($2*1000) w l t "Gh=5 nS", \
-     "q6_Gh_10nS.dat" u 1:($2*1000) w l t "Gh=10 nS", \
-     "q6_Gh_15nS.dat" u 1:($2*1000) w l t "Gh=15 nS"
+plot "q6_Gh_0nS.dat"  u 1:($2*1000) w l lw 0.7 lc rgb '#1f77b4' t "Gh=0 nS",  \
+     "q6_Gh_5nS.dat"  u 1:($2*1000) w l lw 0.7 lc rgb '#2ca02c' t "Gh=5 nS",  \
+     "q6_Gh_10nS.dat" u 1:($2*1000) w l lw 0.7 lc rgb '#ff7f0e' t "Gh=10 nS", \
+     "q6_Gh_15nS.dat" u 1:($2*1000) w l lw 0.7 lc rgb '#d62728' t "Gh=15 nS"
 
-# Q6b: zoom +/-25 ms alrededor de la primera burst
+# Q6b: zoom
 set output "q6_zoom.png"
-unset xrange
-set xrange [-0.025:0.025]
-set xlabel "t - t_firstburst (s)"; set ylabel "V_S (mV)"
-plot "q6_Gh_0nS_zoom.dat"  u 1:($2*1000) w l t "Gh=0 nS", \
-     "q6_Gh_5nS_zoom.dat"  u 1:($2*1000) w l t "Gh=5 nS", \
-     "q6_Gh_10nS_zoom.dat" u 1:($2*1000) w l t "Gh=10 nS", \
-     "q6_Gh_15nS_zoom.dat" u 1:($2*1000) w l t "Gh=15 nS"
+set xrange [-25:25]
+set xlabel "t - t_{pn} (ms)"; set ylabel "V_S (mV)"
+plot "q6_Gh_0nS_zoom.dat"  u 1:($2*1000) w l lw 2 lc rgb '#1f77b4' t "Gh=0 nS",  \
+     "q6_Gh_5nS_zoom.dat"  u 1:($2*1000) w l lw 2 lc rgb '#2ca02c' t "Gh=5 nS",  \
+     "q6_Gh_10nS_zoom.dat" u 1:($2*1000) w l lw 2 lc rgb '#ff7f0e' t "Gh=10 nS", \
+     "q6_Gh_15nS_zoom.dat" u 1:($2*1000) w l lw 2 lc rgb '#d62728' t "Gh=15 nS"
 
 # Q6b: dendritic overview
 set output "q6_dendrite.png"
-unset xrange
 set xrange [0:6]
 set xlabel "t (s)"; set ylabel "V_D (mV)"
-plot "q6_Gh_0nS.dat"  u 1:($3*1000) w l t "Gh=0 nS", \
-     "q6_Gh_5nS.dat"  u 1:($3*1000) w l t "Gh=5 nS", \
-     "q6_Gh_10nS.dat" u 1:($3*1000) w l t "Gh=10 nS", \
-     "q6_Gh_15nS.dat" u 1:($3*1000) w l t "Gh=15 nS"
+plot "q6_Gh_0nS.dat"  u 1:($3*1000) w l lw 0.7 lc rgb '#1f77b4' t "Gh=0 nS",  \
+     "q6_Gh_5nS.dat"  u 1:($3*1000) w l lw 0.7 lc rgb '#2ca02c' t "Gh=5 nS",  \
+     "q6_Gh_10nS.dat" u 1:($3*1000) w l lw 0.7 lc rgb '#ff7f0e' t "Gh=10 nS", \
+     "q6_Gh_15nS.dat" u 1:($3*1000) w l lw 0.7 lc rgb '#d62728' t "Gh=15 nS"
 
-unset xrange
+# Q6b: separate panel layout
+set output "q6_separated.png"
+set multiplot layout 4,2 title "Q6b: efecto de Gh sobre el patrón somático" font 'Arial,12'
+
+set xrange [2:6]; unset yrange
+set ylabel "V_S (mV)" font 'Arial,9'; unset xlabel
+plot "q6_Gh_0nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+set xrange [-25:25]
+plot "q6_Gh_0nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+
+set xrange [2:6]
+plot "q6_Gh_5nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+set xrange [-25:25]
+plot "q6_Gh_5nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+
+set xrange [2:6]
+plot "q6_Gh_10nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+set xrange [-25:25]
+plot "q6_Gh_10nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+
+set xrange [2:6]
+set xlabel "Time (s)" font 'Arial,9'
+plot "q6_Gh_15nS.dat" u 1:($2*1000) w l lw 0.5 lc rgb 'black' notitle
+set xrange [-25:25]
+set xlabel "Time (ms)" font 'Arial,9'
+plot "q6_Gh_15nS_zoom.dat" u 1:($2*1000) w l lw 1.2 lc rgb 'black' notitle
+
+unset multiplot
