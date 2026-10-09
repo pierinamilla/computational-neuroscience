@@ -1,0 +1,1 @@
+Morris-Lecar modificado J=0: V*, n* =    -49.5616649     0.0002704

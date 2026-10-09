@@ -1,0 +1,26 @@
+RESULTADOS Y CRITERIOS DE INTERPRETACION — LISTA 5
+
+FitzHugh–Nagumo
+Ecuaciones: dv/dt=v-v^3/3-w+I; dw/dt=0.08(v+0.7-0.8w).
+Nulclinas: w=v-v^3/3+I y w=(v+0.7)/0.8.
+Equilibrios calculados (v*,w*):
+I=0:    (-1.199408, -0.624260), jacobiano [[1-v*^2,-1],[0.08,-0.064]]. Autovalores complejos con parte real negativa: foco estable.
+I=1:    (0.408866, 1.386082). Autovalores reales positivos: nodo inestable.
+I=1.5:  (1.032480, 2.165600). Autovalores complejos con parte real negativa: foco estable.
+En el inciso (h), el pulso instantaneo se representa cambiando v(0) y dejando w(0)=w* para I=0. Las condiciones iniciales próximas pueden caer en respuestas cualitativamente diferentes por la geometría de excitabilidad.
+
+Morris–Lecar base
+Con J=15: equilibrio (V*,n*)=(-31.733723, 0.107592), autovalores aproximados -0.3256 ± 0.3203 i: foco estable.
+Con J=24.8: equilibrio aproximado (-21.4711, 0.192880); autovalores -0.0708 ± 0.4408 i.
+Con J=25: equilibrio aproximado (-21.2569, 0.195112); autovalores -0.0618 ± 0.4408 i.
+La curva f-I se calcula contando cruces ascendentes de V=0 mV durante la segunda mitad de cada simulación. El umbral estimado y la frecuencia al inicio dependen del paso temporal, el tiempo de simulación y el criterio de detección.
+
+Morris–Lecar modificado
+Con J=0 hay tres equilibrios numéricos aproximados:
+(-49.5617, 0.000270): nodo estable (autovalores -0.4738 y -1.3186).
+(-7.9021, 0.078042): silla (autovalores 1.7626 y -0.1714).
+(0.1373, 0.204180): nodo inestable (autovalores 1.1001 y 0.4106).
+Para J=7.9, la curva de nulclinas presenta tres intersecciones aproximadas; la de menor voltaje es estable y la intermedia es una silla. Cerca de los valores 8.33 y 8.35 la dinámica es muy sensible al umbral y a las condiciones iniciales. Los gráficos muestran la respuesta con la condición inicial estable de J=0, excepto donde se indique otra condición.
+
+Método numérico
+Euler explícito con h=0.001 (unidades temporales de cada modelo). Las frecuencias son estimaciones numéricas, no valores analíticos exactos. Conviene repetir con h=0.0005 para comprobar convergencia, sobre todo cerca de los umbrales.
