@@ -1,1 +1,6 @@
-Morris-Lecar modificado J=0: V*, n* =    -49.5616649     0.0002704
+# Applied current J =   0.0000E+00
+# Detected equilibria = 3
+# Vstar(mV)  nstar
+  -4.956166489E+01    2.703826249E-04
+  -7.902079643E+00    7.804201163E-02
+   1.373155627E-01    2.041801308E-01

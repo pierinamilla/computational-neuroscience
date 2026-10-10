@@ -1,1 +1,4 @@
-Morris-Lecar base J=15: V*, n* =    -31.7337233     0.1075916
+# Applied current J =   1.5000E+01
+# Detected equilibria = 1
+# Vstar(mV)  nstar
+  -3.173372326E+01    1.075915757E-01
