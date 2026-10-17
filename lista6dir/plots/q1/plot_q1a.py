@@ -1,0 +1,13 @@
+import sys, os; sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from common import *
+d = load('q1', 'q1a_fI.dat'); Ia = np.linspace(400, 1600, 2000)
+fig_, ax = plt.subplots(1, 2, figsize=(11, 4.2))
+ax[0].plot(Ia, f_det(Ia), 'k-', label='analítica (notas de aula)')
+ax[0].plot(d[:, 0], d[:, 1], 'o', ms=3.5, color='tab:red', label='numérica (Euler, Δt=0,01 ms)')
+ax[0].axvline(500, color='gray', ls=':'); ax[0].text(505, 160, '$I_L$=500 pA')
+ax[0].axhline(150, color='gray', ls='--', lw=.8)
+ax[0].set_xlabel('I (pA)'); ax[0].set_ylabel('f (Hz)'); ax[0].set_title('Q1(a): curva f–I do LIF'); ax[0].legend()
+ax[1].plot(d[:, 0], d[:, 1]-d[:, 2], 'o-', ms=3); ax[1].set_xlabel('I (pA)'); ax[1].set_ylabel('f_num − f_analít. (Hz)')
+ax[1].set_title('Diferença (quantização de $N/t_{max}$ = 0,5 Hz)')
+fig_.tight_layout(); fig_.savefig(fig('q1', 'q1a_fI.png'))
+print('q1a:', 'erro max = %.2f Hz' % abs(d[:, 1]-d[:, 2]).max())

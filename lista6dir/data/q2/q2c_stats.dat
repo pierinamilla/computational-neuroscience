@@ -1,0 +1,4 @@
+# sigma =   1.500
+# caso  I[pA]  Nspk  <ISI>[ms]  sd(ISI)[ms]  CV
+  abaixo   400.0    40    48.5598    27.2635     0.5614
+   acima   800.0   203     9.8263     2.6739     0.2721
