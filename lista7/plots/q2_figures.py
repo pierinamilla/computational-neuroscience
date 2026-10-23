@@ -29,7 +29,7 @@ def classify(v,a,tm,tau):
  return ('foco inestable' if np.any(abs(eig.imag)>1e-7) else 'nodo inestable'),eig
 fig,axes=plt.subplots(4,2,figsize=(13,11),sharex=True)
 for ax,(name,(tm,a,tau,b,reset,I)) in zip(axes.flat,P.items()):
- d=read(D/f'Q2a_{name}.csv');ax.plot(d['t'],d['V'],lw=.7);ax.axvspan(100,600,alpha=.07,color='gray');ax.set_title(f'Q2(a) — {name} ({I} pA)');ax.set_ylabel('V (mV)');ax.grid(alpha=.2)
+ d=read(D/f'Q2a_{name}.csv');ax.plot(d['t'],d['V'],lw=.7);ax.axvspan(100,300,alpha=.07,color='gray');ax.set_title(f'Q2(a) — {name} ({I} pA)');ax.set_ylabel('V (mV)');ax.grid(alpha=.2)
 axes.flat[-1].axis('off')
 for ax in axes[-1]:ax.set_xlabel('t (ms)')
 save('Q2a_padroes_7.png')

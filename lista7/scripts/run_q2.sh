@@ -7,7 +7,7 @@ gfortran -O2 -Wall -Wextra -fcheck=all src/q2_adex.f90 -o bin/q2_adex
 # name tau_m a tau_w b reset I
 while read -r name tm a tau b reset I; do
   [[ -z "$name" || "$name" == \#* ]] && continue
-  bin/q2_adex "$name" "$tm" "$a" "$tau" "$b" "$reset" "$I" 700 100 600 "datos/Q2a_${name}.csv"
+  bin/q2_adex "$name" "$tm" "$a" "$tau" "$b" "$reset" "$I" 300 75 300 "datos/Q2a_${name}.csv"
 done <<'PARAMS'
 tonic 20 0 30 60 -55 65
 adapting 20 0 100 5 -55 65
