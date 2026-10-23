@@ -1,0 +1,4 @@
+i_rest,I=0,V=-69.999927357,u=0.000036321,tipo=nodo estable,autovalores=[-0.19732171 -0.0126692 ]
+i_rest,I=0,V=-44.459474399,u=12.770262801,tipo=silla,autovalores=[ 2.99239917 -0.00983347]
+i_pulse,I=0,V=-69.999927357,u=0.000036321,tipo=nodo estable,autovalores=[-0.19732171 -0.0126692 ]
+i_pulse,I=0,V=-44.459474399,u=12.770262801,tipo=silla,autovalores=[ 2.99239917 -0.00983347]
