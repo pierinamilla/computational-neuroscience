@@ -1,5 +1,3 @@
-Oitava Lista — notas de execução
-O código-fonte completo de referência está em src/python/solve_lista8.py.
-A execução longa pode demorar devido à integração RK4 explícita com dt=0.01 ms em redes de 10–11 neurônios por 1000 ms.
-Antes de entregar, execute scripts/run_all.sh até o fim e confira se todas as pastas plots/q1..q3 e data foram preenchidas.
-Limitações conhecidas: J0 nos itens Q1(a,b) requer varredura para confirmar exatamente um disparo; a variante tau_d,I de Q3(b) ainda precisa de override explícito da constante sináptica.
+Oitava Lista: integração RK4, dt=0.01 ms. Verifique os CSVs para números e os PNGs separados por pergunta/inciso.
+Os valores J0 de Q1(a,b) são candidatos de varredura inicial, não garantem exatamente um único disparo em todos os ambientes.
+Q3(b): implementação atual varia JE e gIE; tau_d,I precisa de override explícito no modelo sináptico para análise quantitativa completa.

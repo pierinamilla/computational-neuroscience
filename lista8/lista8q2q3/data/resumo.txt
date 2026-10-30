@@ -1,0 +1,24 @@
+--- q2a (Q2a: rede ING (5 I + 5 O), $\bar g_{OI}$ = 0,04 mS/cm²) ---
+  tipo I: taxa media (t>500 ms) = 27.0 Hz | ISI mediano = 25.7 ms (f = 38.9 Hz) | ISI medio = 35.5 ms (f = 28.2 Hz) | chi = 1.000
+  tipo O: taxa media (t>500 ms) = 6.0 Hz | ISI mediano = 178.9 ms (f = 5.6 Hz) | ISI medio = 178.9 ms (f = 5.6 Hz) | chi = 1.000
+--- q2b (Q2b: rede ING sem sinapses O→I ($\bar g_{OI}$ = 0)) ---
+  tipo I: taxa media (t>500 ms) = 40.0 Hz | ISI mediano = 25.1 ms (f = 39.9 Hz) | ISI medio = 25.1 ms (f = 39.9 Hz) | chi = 1.000
+  tipo O: taxa media (t>500 ms) = 6.0 Hz | ISI mediano = 175.6 ms (f = 5.7 Hz) | ISI medio = 175.7 ms (f = 5.7 Hz) | chi = 1.000
+--- q3a ---
+  disparos de E: [ 4.31 34.63 64.95 95.25] ...; disparos de I: [ 5.85 14.1  36.17 44.39 66.48] ...
+  T(E) medio em 200 ms = 30.31 ms; I dispara 2.0x por ciclo de E
+  atraso do 1o disparo de I apos o de E (ciclo 2) = 1.54 ms
+--- q3b (simulacoes de 1000 ms, T medido com os disparos de E em t>300 ms) ---
+  base:        T = 30.3099 ms (desvio 7.7e-03, 23 disparos)  f = 32.99 Hz
+  q3b_J   : T = 30.4750 ms  ->  variacao = +0.545 %
+  q3b_g   : T = 30.3950 ms  ->  variacao = +0.281 %
+  q3b_tau : T = 30.4309 ms  ->  variacao = +0.399 %
+  parametro com maior efeito sobre T: q3b_J
+--- q3c (Q3c: rede E + 5 I + 5 O) ---
+  tipo I: taxa media (t>500 ms) = 12.0 Hz | ISI mediano = 40.8 ms (f = 24.5 Hz) | ISI medio = 77.6 ms (f = 12.9 Hz) | chi = 1.000
+  tipo O: taxa media (t>500 ms) = 6.0 Hz | ISI mediano = 162.6 ms (f = 6.1 Hz) | ISI medio = 162.6 ms (f = 6.1 Hz) | chi = 1.000
+  tipo E: taxa media (t>500 ms) = 19.0 Hz | ISI mediano = 42.5 ms (f = 23.5 Hz) | ISI medio = 54.2 ms (f = 18.4 Hz) | chi = nan
+--- q3d (Q3d: rede E + 5 I + 5 O sem sinapses O→I ($\bar g_{OI}$ = 0)) ---
+  tipo I: taxa media (t>500 ms) = 23.0 Hz | ISI mediano = 44.6 ms (f = 22.4 Hz) | ISI medio = 43.2 ms (f = 23.2 Hz) | chi = 1.000
+  tipo O: taxa media (t>500 ms) = 6.0 Hz | ISI mediano = 172.1 ms (f = 5.8 Hz) | ISI medio = 172.0 ms (f = 5.8 Hz) | chi = 1.000
+  tipo E: taxa media (t>500 ms) = 12.0 Hz | ISI mediano = 133.2 ms (f = 7.5 Hz) | ISI medio = 90.4 ms (f = 11.1 Hz) | chi = nan
